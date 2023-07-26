@@ -17,11 +17,11 @@ export const MenuItem: FC<MenuItemProps> = ({
 }) => {
   return (
     <div className="w-96 shadow-xl rounded-2xl bg-white">
-      <div className="relative  ">
+      <div className="relative">
         <img
           className="object-cover w-full h-[15rem] object-center rounded-t-2xl"
           src={imagePath}
-          alt=""
+          alt="title"
         />
         <span className="absolute bottom-1.5 right-3 bg-gray-900/50 text-white text-sm px-2 rounded-[2rem]">
           {weight} г
