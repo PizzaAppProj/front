@@ -9,6 +9,23 @@ const meta: Meta<typeof MenuItem> = {
 export default meta;
 type Story = StoryObj<typeof MenuItem>;
 
-export const Primary: Story = {
+export const General: Story = {
   render: (args) => <MenuItem {...args} />,
+  args: {
+    image: "menu/menu-1691077891",
+    weight: 555,
+    title: "Піца Мангеттен",
+    ingredients: "asdasd",
+    price: 215,
+  },
+};
+export const Drink: Story = {
+  render: (args) => <MenuItem {...args} />,
+  args: {
+    image: "menu/menu-1691327952",
+    price: 55,
+    title: 'Сік "Наш Сік" яблучний 0.95л',
+    ingredients: "",
+    fitImage: true,
+  },
 };

@@ -1,18 +1,20 @@
 import { MenuItem } from "../menu-item/menu-item.component";
-import { Pizza } from "../../types/pizza";
 import { FC } from "react";
+import { Menu, useGetSettingsQuery } from "@app/core/types";
 
 interface MenuListProps {
-  items: Pizza[];
+  items: Menu[];
 }
 export const MenuList: FC<MenuListProps> = ({ items }) => {
+  const { data: settings } = useGetSettingsQuery({ fetchPolicy: "cache-only" });
   return (
     <div className="flex flex-wrap gap-10 justify-center">
-      {items.map(({ image, ...pizza }) => (
+      {items?.map(({ image, ...pizza }) => (
         <MenuItem
           {...pizza}
-          imagePath={"/assets/pizza/" + image}
+          image={image}
           key={`pizza-${pizza.id}`}
+          fitImage={pizza.category_id === settings?.settings[0].drinks_category}
         />
       ))}
     </div>
