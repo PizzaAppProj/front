@@ -1,7 +1,8 @@
 import { useGetMenuQuery, useGetSettingsQuery } from "@app/core/types";
 import { MenuListLoading } from "../components/menu-item-list-loading/menu-item-list-loading.component";
-import { ShowInfo } from "@app/common/commonts/show-info/show-info.component";
+import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { MenuCategory } from "../components/menu-category/menu-category.component";
+import { Helmet } from "react-helmet";
 
 export const MenuPage = () => {
   const { data, loading, error } = useGetMenuQuery();
@@ -26,10 +27,15 @@ export const MenuPage = () => {
     );
   }
   return (
-    <div className="flex flex-col gap-12">
-      {data.categories.map((category) => (
-        <MenuCategory data={category} key={`menu-page${category.id}`} />
-      ))}
-    </div>
+    <>
+      <Helmet>
+        <title>Меню</title>
+      </Helmet>
+      <div className="flex flex-col gap-12">
+        {data.categories.map((category) => (
+          <MenuCategory data={category} key={`menu-page${category.id}`} />
+        ))}
+      </div>
+    </>
   );
 };

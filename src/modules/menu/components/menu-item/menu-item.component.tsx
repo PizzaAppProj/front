@@ -1,8 +1,9 @@
 import { FC } from "react";
-import { cloudinary } from "@app/core/cloudinary";
 import { AdvancedImage } from "@cloudinary/react";
-import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import clsx from "clsx";
+import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
+import { Button } from "@app/common/components/button/button.component";
+import { addItemToCart } from "@app/modules/cart/store/cart-state";
 
 interface MenuItemProps {
   image: string;
@@ -11,6 +12,7 @@ interface MenuItemProps {
   ingredients?: string | null;
   price: number;
   fitImage?: boolean;
+  pizzaId: string;
 }
 
 export const MenuItem: FC<MenuItemProps> = ({
@@ -20,19 +22,23 @@ export const MenuItem: FC<MenuItemProps> = ({
   ingredients,
   price,
   fitImage = false,
+  pizzaId,
 }) => {
-  const imageCld = cloudinary.image(image);
-  const transformations = ["w_384", "h_240", "dpr_2.0"];
+  const transformations = ["w_384", "h_240"];
 
   if (fitImage) {
     transformations.unshift("c_pad");
   }
-  imageCld.addTransformation(transformations.join(","));
+  const imageCld = useCloudinaryImage(image, transformations);
 
   const titleClasses = clsx("text-xl font-semibold", {
     "mb-2": ingredients,
     "mb-8": !ingredients,
   });
+
+  const handleAddToCart = () => {
+    addItemToCart(pizzaId);
+  };
   return (
     <div className="w-96 shadow-xl rounded-2xl bg-white">
       <div className="relative">
@@ -51,7 +57,11 @@ export const MenuItem: FC<MenuItemProps> = ({
       <div className="p-8">
         <h2 className={titleClasses}>{title}</h2>
         {ingredients && <p className="mb-8">{ingredients}</p>}
-        <span className="text-xl font-semibold">{price} грн.</span>
+        <div className="flex justify-between items-center">
+          <span className="text-xl font-semibold">{price} грн.</span>
+
+          <Button onClick={handleAddToCart}>Додати до корзини</Button>
+        </div>
       </div>
     </div>
   );

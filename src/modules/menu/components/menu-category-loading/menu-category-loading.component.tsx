@@ -1,4 +1,4 @@
-import { Skeleton } from "@app/common/commonts/skeleton/skeleton.component";
+import { Skeleton } from "@app/common/components/skeleton/skeleton.component";
 import { MenuListLoading } from "../menu-item-list-loading/menu-item-list-loading.component";
 
 export const MenuCategoryLoading = () => {
